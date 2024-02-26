@@ -25,7 +25,9 @@ const MobileNav = () => {
           </SheetTitle>
           <Separator />
           <SheetDescription>
-            <Button className=" w-full bg-red-500 font-bold">Log In</Button>
+            <Button className=" w-full bg-red-500 font-bold hover:bg-red-600">
+              Log In
+            </Button>
           </SheetDescription>
         </SheetHeader>
       </SheetContent>
