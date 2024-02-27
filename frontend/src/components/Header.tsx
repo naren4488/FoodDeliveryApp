@@ -7,7 +7,7 @@ const Header = () => {
     <div className="border-b-2 border-b-red-500 py-6">
       <div className="container mx-auto flex items-center justify-between">
         <Link
-          className="text-3xl font-semibold tracking-tight text-red-500"
+          className="text-3xl font-bold tracking-tight text-red-500"
           to={"/"}
         >
           FoodDeliveryApp
@@ -16,7 +16,7 @@ const Header = () => {
         <div className="md:hidden">
           <MobileNav />
         </div>
-        <div className="max-sm:hidden">
+        <div className="max-md:hidden">
           <Nav />
         </div>
       </div>
