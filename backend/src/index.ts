@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
+import myUserRoutes from "./routes/myUser.route";
 
 const PORT = 8000;
 
@@ -14,9 +15,7 @@ app.use(express.json());
 // to manage security for calls -------- check docs once
 app.use(cors());
 
-app.get("/test", async (req: Request, res: Response) => {
-  res.json({ message: "hello this is test route" });
-});
+app.use("/api/my/user", myUserRoutes);
 
 mongoose
   .connect(process.env.MONGODB_URL as string)
