@@ -15,6 +15,11 @@ app.use(express.json());
 // to manage security for calls -------- check docs once
 app.use(cors());
 
+// api endpoint at /health to check if backend is successfully running
+app.get("/health", (req: Request, res: Response) => {
+  res.send({ message: "Health ok!" });
+});
+
 app.use("/api/my/user", myUserRoutes);
 
 mongoose
