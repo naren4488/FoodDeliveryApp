@@ -13,7 +13,13 @@ const MobileNavLinks = () => {
         User Profile
       </Link>
       <Button
-        onClick={() => logout()}
+        onClick={() =>
+          logout({
+            logoutParams: {
+              returnTo: "https://food-delivery-app-frontend-8435.onrender.com",
+            },
+          })
+        }
         className="flex flex-1 bg-red-500 hover:bg-red-600"
       >
         Log Out
