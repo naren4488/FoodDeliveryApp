@@ -20,7 +20,6 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
   const onRedirectCallback = () => {
     // navigate(appState?.returnTo || "/auth-callback");
     navigate("/auth-callback");
-    // console.log("User details are from auth0: ", user);
   };
 
   return (
