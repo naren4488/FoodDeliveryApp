@@ -24,3 +24,43 @@ export const validateMyUserRequest = [
   body("country").isString().notEmpty().withMessage("Country must be a string"),
   handleValidationErrors,
 ];
+
+export const validateMyRestaurantRequest = [
+  body("restrauntName")
+    .isString()
+    .notEmpty()
+    .withMessage("Restraunt name is required & must be a string"),
+  body("city")
+    .isString()
+    .notEmpty()
+    .withMessage("City is required & must be a string"),
+  body("country")
+    .isString()
+    .notEmpty()
+    .withMessage("Country is required & must be a string"),
+  body("deliveryPrice")
+    .isFloat({ min: 0 })
+    .notEmpty()
+    .withMessage("Delivery price is required & must be a positive number"),
+  body("estimatedDeliveryTime")
+    .isInt({ min: 0 })
+    .notEmpty()
+    .withMessage(
+      "Estimated delivery time is required & must be a positive integer"
+    ),
+  body("cuisines")
+    .isArray()
+    .withMessage("Cousines must be an array")
+    .notEmpty()
+    .withMessage("Cousines array can not be empty"),
+  body("menuItems").isArray().withMessage("Menu items must be an array"),
+  body("menuItems.*.name")
+    .isString()
+    .notEmpty()
+    .withMessage("Menu item name is required & must be a string"),
+  body("menuItems.*.price")
+    .isFloat({ min: 0 })
+    .notEmpty()
+    .withMessage("Menu item price is required & must be a number"),
+  handleValidationErrors,
+];

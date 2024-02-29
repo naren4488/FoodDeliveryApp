@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
 import myUserRoutes from "./routes/myUser.route";
+import myRestaurantRoute from "./routes/myRestaurant.route";
 import { v2 as cloudinary } from "cloudinary";
 
 // connect to database
@@ -33,7 +34,11 @@ app.get("/health", (req: Request, res: Response) => {
   res.send({ message: "Health ok!" });
 });
 
+// myUserRoutes api -> /api/my/user
 app.use("/api/my/user", myUserRoutes);
+
+// myRestaurantRoutes api -> /api/my/restaurant
+app.use("/api/my/restaurant", myRestaurantRoute);
 
 // start server
 app.listen(PORT, () => {
