@@ -6,10 +6,12 @@ import mongoose from "mongoose";
 const getMyRestaurant = async (req: Request, res: Response) => {
   try {
     const restaurant = await Restaurant.findOne({ user: req.userId });
+
     if (!restaurant) {
-      return res.status(404).json({ message: "Restaurant not found" });
+      res.status(404).json({ message: "Restaurant not found" });
+    } else {
+      res.json(restaurant);
     }
-    res.json(restaurant);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Error fetching restaurant" });
@@ -20,18 +22,18 @@ const createMyRestaurant = async (req: Request, res: Response) => {
   try {
     const restaurant = await Restaurant.findOne({ user: req.userId });
     if (restaurant) {
-      return res.status(409).json({ message: "User Restaurant already exist" });
+      res.status(409).json({ message: "User Restaurant already exist" });
+    } else {
+      const imageUrl = await uploadImage(req.file as Express.Multer.File);
+
+      const newRestaurant = new Restaurant(req.body);
+      newRestaurant.imageUrl = imageUrl;
+      newRestaurant.lastUpdated = new Date();
+      newRestaurant.user = new mongoose.Types.ObjectId(req.userId);
+      await newRestaurant.save();
+
+      res.status(201).json(newRestaurant);
     }
-
-    const imageUrl = await uploadImage(req.file as Express.Multer.File);
-
-    const newRestaurant = new Restaurant(req.body);
-    newRestaurant.imageUrl = imageUrl;
-    newRestaurant.lastUpdated = new Date();
-    newRestaurant.user = new mongoose.Types.ObjectId(req.userId);
-    await newRestaurant.save();
-
-    return res.status(201).json(newRestaurant);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });
@@ -42,25 +44,25 @@ const updateMyRestaurant = async (req: Request, res: Response) => {
   try {
     const restaurant = await Restaurant.findOne({ user: req.userId });
     if (!restaurant) {
-      return res.status(404).json({ message: "Restaurant not found" });
+      res.status(404).json({ message: "Restaurant not found" });
+    } else {
+      restaurant.restaurantName = req.body.restaurantName;
+      restaurant.city = req.body.city;
+      restaurant.country = req.body.country;
+      restaurant.deliveryPrice = req.body.deliveryPrice;
+      restaurant.estimatedDeliveryTime = req.body.estimatedDeliveryTime;
+      restaurant.cuisines = req.body.cuisines;
+      restaurant.menuItems = req.body.menuItems;
+      restaurant.lastUpdated = new Date();
+
+      if (req.file) {
+        const imageUrl = await uploadImage(req.file as Express.Multer.File);
+        restaurant.imageUrl = imageUrl;
+      }
+
+      await restaurant.save();
+      res.status(201).json(restaurant);
     }
-
-    restaurant.restaurantName = req.body.restaurantName;
-    restaurant.city = req.body.city;
-    restaurant.country = req.body.country;
-    restaurant.deliveryPrice = req.body.deliveryPrice;
-    restaurant.estimatedDeliveryTime = req.body.estimatedDeliveryTime;
-    restaurant.cuisines = req.body.cuisines;
-    restaurant.menuItems = req.body.menuItems;
-    restaurant.lastUpdated = new Date();
-
-    if (req.file) {
-      const imageUrl = await uploadImage(req.file as Express.Multer.File);
-      restaurant.imageUrl = imageUrl;
-    }
-
-    await restaurant.save();
-    res.json(201).send(restaurant);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }
