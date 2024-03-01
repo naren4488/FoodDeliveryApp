@@ -1,18 +1,17 @@
 import express from "express";
-import myUserController from "../controllers/myUser.controller";
+import MyUserController from "../controllers/MyUser.controller";
 import { jwtCheck, jwtParse } from "../middleware/auth.middleware";
 import { validateMyUserRequest } from "../middleware/validation";
 
-const router = express();
-
-router.get("/", jwtCheck, jwtParse, myUserController.getCurrentUser);
-router.post("/", jwtCheck, myUserController.createCurrentUser);
+const router = express.Router();
+router.get("/", jwtCheck, jwtParse, MyUserController.getCurrentUser);
+router.post("/", jwtCheck, MyUserController.createCurrentUser);
 router.put(
   "/",
   jwtCheck,
   jwtParse,
   validateMyUserRequest,
-  myUserController.updateCurrentUser
+  MyUserController.updateCurrentUser
 );
 
 export default router;
