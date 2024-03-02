@@ -47,6 +47,10 @@ const searchRestaurants = async (req: Request, res: Response) => {
     const skip = (page - 1) * pageSize;
 
     console.log("---------- query for DB : ", query);
+    if (query["$or"]) {
+      console.log("---------- query for DB : ", query["$or"][0]);
+      console.log("---------- query for DB : ", query["$or"][1]);
+    }
     // sortOption = "lastUpdated"
     const restaurants = await Restaurant.find(query)
       .sort({ [sortOption]: 1 })
