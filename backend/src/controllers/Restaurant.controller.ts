@@ -16,6 +16,8 @@ const searchRestaurants = async (req: Request, res: Response) => {
     query["city"] = new RegExp(city, "i");
     console.log("---------- city query for DB : ", query);
     const cityCheck = await Restaurant.countDocuments(query);
+    const naren = await Restaurant.find(query);
+    // console.log(";;;;;;;;;;;;;;", cityCheck, naren);
     if (cityCheck === 0) {
       return res.status(404).json({
         data: [],
