@@ -1,5 +1,5 @@
 import { useGetRestaurant } from "@/api/RestaurantApi";
-import MenuItemCard from "@/components/MenuItem";
+import MenuItemCard from "@/components/MenuItemCard";
 import OrderSummary from "@/components/OrderSummary";
 import RestaurantInfo from "@/components/RestaurantInfo";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -52,6 +52,16 @@ const DetailPage = () => {
     });
   };
 
+  const removeFromCart = (cartItem: CartItem) => {
+    setCartItems((prevCartItems) => {
+      const updatedCartItem = prevCartItems.filter(
+        (item) => cartItem._id !== item._id,
+      );
+
+      return updatedCartItem;
+    });
+  };
+
   if (isLoading || !restaurant) {
     return "Loading...";
   }
@@ -76,7 +86,11 @@ const DetailPage = () => {
         </div>
         <div className="">
           <Card>
-            <OrderSummary restaurant={restaurant} cartItems={cartItems} />
+            <OrderSummary
+              restaurant={restaurant}
+              cartItems={cartItems}
+              removeFromCart={removeFromCart}
+            />
           </Card>
         </div>
       </div>
