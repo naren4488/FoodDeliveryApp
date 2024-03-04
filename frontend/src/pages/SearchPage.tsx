@@ -54,7 +54,7 @@ const SearchPage = () => {
   const setSearchQuery = (searchFormData: SearchForm) => {
     setSearchState((prevState) => ({
       ...prevState,
-      searchQuery: searchFormData.searchQuery,
+      searchQuery: searchFormData.searchQuery.trim(),
       page: 1,
     }));
   };

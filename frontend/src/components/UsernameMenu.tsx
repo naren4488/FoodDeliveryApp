@@ -39,8 +39,7 @@ const UsernameMenu = () => {
               onClick={() =>
                 logout({
                   logoutParams: {
-                    returnTo:
-                      "https://food-delivery-app-frontend-8435.onrender.com",
+                    returnTo: window.location.origin,
                   },
                 })
               }
