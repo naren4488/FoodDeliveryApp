@@ -25,11 +25,13 @@ const PORT = 8000;
 // create new server using express & assign to app variable
 const app = express();
 
-// to convert all request bodies into json format
-app.use(express.json());
-
 // to manage security for calls -------- check docs once
 app.use(cors());
+
+app.use("/api/order/checkout/webhook", express.raw({ type: "*/*" }));
+
+// to convert all request bodies into json format
+app.use(express.json());
 
 // api endpoint at /health to check if backend is successfully running
 app.get("/health", (req: Request, res: Response) => {
