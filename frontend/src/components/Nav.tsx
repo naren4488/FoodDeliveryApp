@@ -1,15 +1,19 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "./ui/button";
 import UsernameMenu from "./UsernameMenu";
+import { Link } from "react-router-dom";
 
 export const Nav = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
   return (
     <span className="flex items-center space-x-2">
       {isAuthenticated ? (
-        <span>
+        <>
+          <Link to="/order-status" className="font-bold hover:text-red-500">
+            Order Status
+          </Link>
           <UsernameMenu />
-        </span>
+        </>
       ) : (
         <Button
           onClick={async () => await loginWithRedirect()}
