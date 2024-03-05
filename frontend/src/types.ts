@@ -47,7 +47,7 @@ export type Order = {
     name: string;
     city: string;
     country: string;
-    addrssLine1: string;
+    addressLine1: string;
   };
   totalAmount: number;
   status: OrderStatus;
