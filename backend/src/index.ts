@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import myUserRoute from "./routes/MyUser.route";
 import myRestaurantRoute from "./routes/MyRestaurant.route";
 import restaurantRoute from "./routes/Restaurant.route";
+import orderRoute from "./routes/OrderRoute";
 import { v2 as cloudinary } from "cloudinary";
 
 // connect to database
@@ -43,6 +44,9 @@ app.use("/api/my/restaurant", myRestaurantRoute);
 
 // RestaurantRoute api -> /api/restaurant
 app.use("/api/restaurant", restaurantRoute);
+
+// OrderRoute api -> /
+app.use("/api/order", orderRoute);
 
 // start server
 app.listen(PORT, () => {
